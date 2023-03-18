@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'me.maximde'
+version '1.0'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'utils'
+            version = this.version
+            from components.java
+
+            pom {
+                name = 'NextFightUtils'
+                description = 'NextFight network utils'
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+dependencies {
+    implementation 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+}
