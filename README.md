@@ -1,2 +1,2 @@
-# Java utils
+# Some old utils for the server
 
